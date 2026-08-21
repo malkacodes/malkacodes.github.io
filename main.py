@@ -11,7 +11,7 @@ def generate_name(event):
     global _BUTTON_PRESSED
     _BUTTON_PRESSED = True
 
-    attributes = np.full(23, False)
+    attributes = np.full(24, False)
 
     attributes[0] = True
 
@@ -36,6 +36,7 @@ def generate_name(event):
     attributes[20] = _OPTIONS_SELECTED[5]=="low"
     attributes[21] = _OPTIONS_SELECTED[6]=="low"
     attributes[22] = _OPTIONS_SELECTED[6]=="high"
+    attributes[23] = (not any(attributes[10:17])) & (attributes[5] | attributes[18])
     
     # Gotta fill in that default field if applicable.
     attributes[1] = ~np.any(attributes[2:])
