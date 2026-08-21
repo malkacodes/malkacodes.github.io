@@ -1,0 +1,7 @@
+{
+    "packages" : ["numpy"],
+    "files" : {
+        "./name_generation.py":"./name_generation.py",
+        "./new_sample_grammar.json":"./new_sample_grammar.json"
+    }
+}
