@@ -10,6 +10,8 @@ DESCRIPTOR_PRODUCT_START_COL = 3
 DESCRIPTOR_DECORATOR_ELIGIBLE_COL = 2
 DECORATOR_PRODUCT_START_COL = 0
 
+MAX_LETTER_OVERLAP = 0.8
+
 def generate_name(
         attributes : np.ndarray,
         rg : Generator,
@@ -73,7 +75,10 @@ def generate_name(
                 curr_decorator = decorator_list[decorator_index_choice]
 
                 # Special case to ensure that we don't end up with double port, fort, etc.
-                if (curr_decorator.lower() == curr_noun.lower()) or (curr_decorator.lower() == curr_descriptor.lower()):
+                if (
+                    (_overlap_size(curr_decorator.lower(), curr_noun.lower()) > MAX_LETTER_OVERLAP) or
+                    (_overlap_size(curr_decorator.lower(), curr_descriptor.lower()) > MAX_LETTER_OVERLAP)
+                ):
                     curr_decorator = ""
 
     # Put it all together.
@@ -82,9 +87,16 @@ def generate_name(
         result = (curr_descriptor.lower() + curr_noun.lower()).title()
     else:
         result = curr_descriptor.title() + " " + curr_noun.title()
-    result = result.replace("'S", "'s")
 
     if curr_decorator != "":
         result = curr_decorator.title() + " " + result
 
+    result = result.replace("'S", "'s").replace(" Of ", " of ")
+
+
     return (result, curr_state)
+
+def _overlap_size(word_1 : str, word_2 : str) -> float:
+    total_letters = set(word_1) | set(word_2)
+    intersecting_letters = set(word_1) & set(word_2)
+    return len(intersecting_letters) / len(total_letters)

@@ -22,6 +22,7 @@
       }
       a {
         color : #b9b15f;
+        font-weight: bold;
       }
       .subtitle {
         color: #a2dde1;
@@ -31,7 +32,6 @@
       .selection-label {
         color: #a2dde1;
         width: 20%;
-        font-size: larger;
       }
       .generate-name {
         background: #25583b;
@@ -58,7 +58,7 @@
       .selection-buttons {
         display: flex;
         gap: 0.5rem;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.1rem;
       }
       .selection-btn {
         flex: 1;
@@ -113,10 +113,10 @@
   </head>
   <body>
     <h1>Context Aware Name Generator</h1>
-    <p class="subtitle">Part of the Multiversal Maproom project</p>
+    <p class="subtitle">Part of the <a href="index.html">Multiversal Maproom</a> project</p>
     This demo runs in PyScript, so it's going to take 5-10 seconds to load the first time you open it. 
     <br><br>
-    <a href="https://youtu.be/e46V4Gb0scM">Here's a video explaining how this works</a>. Give this generator a try for yourself!
+      Give this generator a try for yourself!
     If you have any feedback, 
     please send it along to <a href="mailto:multiversal.maproom@gmail.com">multiversal.maproom@gmail.com</a>. Thanks so much!
     <br><br>
@@ -148,9 +148,9 @@
     
       <div class="selection-buttons">
         <div class="selection-label"> Longitude </div>
-        <button class="selection-btn selection-btn-longitude high" data-selection="high">East</button>
-        <button class="selection-btn selection-btn-longitude medium selected" data-selection="medium">Middle</button>
         <button class="selection-btn selection-btn-longitude low" data-selection="low">West</button>
+        <button class="selection-btn selection-btn-longitude medium selected" data-selection="medium">Middle</button>
+        <button class="selection-btn selection-btn-longitude high" data-selection="high">East</button>
       </div>
 
     
@@ -180,7 +180,9 @@
     
       <div class="selection-buttons">
         <div class="selection-label"> Capital </div>
-        <button class="selection-btn selection-btn-capital yes" data-selection="yes">Yes</button>
+        <button class="selection-btn selection-btn-capital imperial" data-selection="imperial">Imperial</button>
+        <button class="selection-btn selection-btn-capital yes" data-selection="yes">National</button>
+        <button class="selection-btn selection-btn-capital city-state" data-selection="city-state">City-State</button>
         <button class="selection-btn selection-btn-capital no selected" data-selection="no">No</button>
       </div>
 
@@ -226,6 +228,13 @@
         <button class="selection-btn selection-btn-holy no selected" data-selection="no">No</button>
       </div>
 
+      <div class="selection-buttons">
+        <div class="selection-label"> Abandoned </div>
+        <button class="selection-btn selection-btn-abandoned cursed" data-selection="cursed">Cursed</button>
+        <button class="selection-btn selection-btn-abandoned ruined" data-selection="ruined">Ruined</button>
+        <button class="selection-btn selection-btn-abandoned no selected" data-selection="no">No</button>
+      </div>
+
       
       <button class="generate-btn" id="generate-name-btn">Generate Name</button>
     </div>
@@ -240,7 +249,9 @@
 
     <div id="rg-state" class="rg-state"></div>
 
-    <div>You are using Version 0.1 of the Context Aware Name Generator.</div>
+      Thank you for testing the Context Aware Name Generator. To learn more about the Multiversal Maproom project, follow along on <a href="https://www.youtube.com/@MultiversalMaproom">YouTube</a>,
+     <a href="https://multiversal-maproom.tumblr.com/">Tumblr</a>,
+      or <a href="https://bsky.app/profile/multiversalmaproom.bsky.social">BSky</a>, or check out our <a href="dev_log.html">development log</a>.
 
     <script type="py" src="./main.py" config="./pyscript.json"></script>
   </body>

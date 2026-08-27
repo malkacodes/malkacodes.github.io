@@ -3,7 +3,7 @@ import name_generation
 import json 
 import numpy as np
 
-_OPTIONS_SELECTED = ["medium"]*14
+_OPTIONS_SELECTED = ["medium"]*15
 
 @when("click", "#generate-name-btn")
 def generate_name(event):
@@ -11,7 +11,7 @@ def generate_name(event):
     global _BUTTON_PRESSED
     _BUTTON_PRESSED = True
 
-    attributes = np.full(24, False)
+    attributes = np.full(28, False)
 
     attributes[0] = True
 
@@ -23,7 +23,7 @@ def generate_name(event):
     attributes[7] = _OPTIONS_SELECTED[2]=="low"
     attributes[8] = _OPTIONS_SELECTED[3]=="high"
     attributes[9] = _OPTIONS_SELECTED[3]=="low"
-    attributes[10] = _OPTIONS_SELECTED[7]=="yes"
+    attributes[10] = (_OPTIONS_SELECTED[7] in ["yes", "city-state", "imperial"])
     attributes[11] = _OPTIONS_SELECTED[9]=="yes"
     attributes[12] = _OPTIONS_SELECTED[12]=="yes"
     attributes[13] = _OPTIONS_SELECTED[13]=="yes"
@@ -37,6 +37,10 @@ def generate_name(event):
     attributes[21] = _OPTIONS_SELECTED[6]=="low"
     attributes[22] = _OPTIONS_SELECTED[6]=="high"
     attributes[23] = (not any(attributes[10:17])) & (attributes[5] | attributes[18])
+    attributes[24] = _OPTIONS_SELECTED[7]=="city-state"
+    attributes[25] = _OPTIONS_SELECTED[7]=="imperial"
+    attributes[26] = _OPTIONS_SELECTED[14]=="ruined"
+    attributes[27] = _OPTIONS_SELECTED[14]=="cursed"
     
     # Gotta fill in that default field if applicable.
     attributes[1] = ~np.any(attributes[2:])
@@ -124,6 +128,10 @@ def select_option_ancient(event):
 @when("click", ".selection-btn-holy")
 def select_option_holy(event):
     select_option(event, "holy", 13)
+
+@when("click", ".selection-btn-abandoned")
+def select_option_abandoned(event):
+    select_option(event, "abandoned", 14)
 
 data = json.load(open("new_sample_grammar.json", "r"))
 params = (
